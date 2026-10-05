@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "campusloop",
+  "main": "src/index.ts",
+  "compatibility_date": "2024-09-25",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "campusloop-db",
+      "database_id": "e0e17fd7-1c5d-40bb-bb7a-51e7fcffb0df"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "BUCKET",
+      "bucket_name": "campusloop-images"
+    }
+  ]
+}
