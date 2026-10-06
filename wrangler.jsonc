@@ -1,32 +1,19 @@
-import { useState, useEffect } from 'react';
-
-export default function DatabaseStatus() {
-  const [dbStatus, setDbStatus] = useState({ connected: false, message: 'Đang kiểm tra kết nối...' });
-
-  useEffect(() => {
-    // Thay URL bên dưới bằng URL Worker Cloudflare thực tế của bạn sau khi deploy thành công
-    const CLOULDFLARE_WORKER_URL = 'https://<ten-worker-cua-ban>.workers.dev'; 
-
-    fetch(`${CLOULDFLARE_WORKER_URL}/api/check-db`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.connected) {
-          setDbStatus({ connected: true, message: '' }); // Kết nối thành công -> Xóa chữ cảnh báo
-        } else {
-          setDbStatus({ connected: false, message: data.message });
-        }
-      })
-      .catch((err) => {
-        setDbStatus({ connected: false, message: 'Chưa kết nối cơ sở dữ liệu (Không thể gọi API)' });
-      });
-  }, []);
-
-  return (
-    <div>
-      {/* Nếu chưa kết nối được, hiển thị dòng chữ lỗi màu đỏ như trong ảnh của bạn */}
-      {!dbStatus.connected && (
-        <p style={{ color: 'red', fontWeight: 'bold' }}>{dbStatus.message}</p>
-      )}
-    </div>
-  );
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "campusloop",
+  "main": "src/index.ts",
+  "compatibility_date": "2024-09-25",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "campusloop-db",
+      "database_id": "e0e17fd7-1c5d-40bb-bb7a-51e7fcffb0df"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "BUCKET",
+      "bucket_name": "campusloop-images"
+    }
+  ]
 }
